@@ -1,9 +1,7 @@
 package cn.caizhongdong.numberofsteps.rest.app;
 
-import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
-import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 //import java.util.HashSet;
 //import java.util.Set;
