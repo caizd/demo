@@ -9,6 +9,57 @@
     <!--<context:component-scan base-package="cn.caizhongdong.numberofsteps.service" />-->
     <context:component-scan base-package="cn.caizhongdong.numberofsteps.rest.resource" />
     <context:component-scan base-package="cn.caizhongdong.numberofsteps.rest.filter" />
+    <context:property-placeholder location="classpath:config.properties"/>
+    <context:component-scan base-package="com.saofenbao.member" />
+    <context:component-scan base-package="com.qcloud" />
+    <mybatis:scan base-package="com.saofenbao.member.dao" />
+    <cache:annotation-driven cache-manager="cacheManager"  />
 
+    <task:annotation-driven />
+
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="100" />
+        <property name="maxWaitMillis" value="3000" />
+        <property name="testOnBorrow" value="true" />
+    </bean>
+
+    <bean id="JedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          p:host-name="${redisServer}" p:port="6379" p:password="" p:pool-config-ref="poolConfig"/>
+
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="JedisConnectionFactory" />
+    </bean>
+
+    <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+        <constructor-arg index="0" ref="redisTemplate"></constructor-arg>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="prop" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <array>
+                <value>classpath:sms.properties</value>
+            </array>
+        </property>
+    </bean>
+    <beans profile="dev">
+        <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+            <property name="driverClassName" value="org.postgresql.Driver"/>
+            <property name="url" value="jdbc:postgresql://192.168.1.9:5432/member?stringtype=unspecified"/>
+            <property name="username" value="pgdbo"/>
+            <property name="password" value="u8soft"/>
+            <property name="maxTotal" value="10"></property>
+            <property name="maxIdle" value="5"></property>
+            <property name="maxWaitMillis" value="5000"></property>
+        </bean>
+    </beans>
 
 </beans>
