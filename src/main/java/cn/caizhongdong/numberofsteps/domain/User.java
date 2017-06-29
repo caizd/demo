@@ -1,10 +1,9 @@
 package cn.caizhongdong.numberofsteps.domain;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User  implements Principal {
+public class User {
 	private String name;
 	private int id;
 	/**
