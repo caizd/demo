@@ -25,12 +25,13 @@
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
     </bean>
 
     <beans profile="dev">
         <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
             <property name="driverClassName" value="org.postgresql.Driver"/>
-            <property name="url" value="jdbc:postgresql://47.88.100.165:5432/numberofsteps?stringtype=unspecified"/>
+            <property name="url" value="jdbc:postgresql://47.88.100.165:5432/numberofsteps"/>
             <property name="username" value="postgres"/>
             <property name="password" value="920908"/>
             <property name="maxTotal" value="10"></property>

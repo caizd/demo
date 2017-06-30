@@ -16,6 +16,7 @@ public class UserService {
 
 
     public User retrieveOrder(int id) {
-        return userDao.getUserById(id);
+        User user = userDao.getUserById(id);
+        return user;
     }
 }

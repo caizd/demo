@@ -1,7 +1,5 @@
 package cn.caizhongdong.numberofsteps.domain;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class User {
 	private String name;
@@ -30,11 +28,6 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
 
-	public List<String> getRoles(){
-		 List<String> roles = new ArrayList<String>();
-		 roles.add("user");
-		 return roles;
-	}
+
 }
